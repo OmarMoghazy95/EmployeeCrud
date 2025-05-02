@@ -1,0 +1,7 @@
+﻿################################################################################
+# This .gitignore file was automatically created by Microsoft(R) Visual Studio.
+################################################################################
+
+/Rentsas.Api/bin/Debug/net8.0
+/Rentsas.Api/obj
+/Rentsas.Api/.vs
