@@ -28,7 +28,7 @@ public static class EmployeeMinimalEndpoints
         group.MapDelete("/{id:int}", async (int id, IEmployeeService service, CancellationToken ct) =>
         {
             var deleted = await service.DeleteAsync(id, ct);
-            return deleted ? Results.Ok() : Results.NotFound();
+            return deleted ? Results.Ok(deleted) : Results.NotFound(deleted);
         });
 
         group.MapGet("/{id:int}", async (int id, IEmployeeService service, CancellationToken ct) =>

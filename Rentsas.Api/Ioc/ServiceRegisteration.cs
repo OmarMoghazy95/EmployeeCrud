@@ -11,5 +11,17 @@ public static partial class IServiceCollectionExtensions
         services.RegisterDbContext();
         services.AddScoped<IEmployeeRepository, EmployeeRepository>();
         services.AddScoped<IEmployeeService, EmployeeService>();
+        services.AddCors(options =>
+        {
+            options.AddPolicy("ClientApp", policy =>
+            {
+                policy
+                    .WithOrigins("http://localhost:4200")
+                    .AllowAnyMethod()
+                    .AllowAnyHeader()
+                    .AllowCredentials();
+            });
+        });
+
     }
 }

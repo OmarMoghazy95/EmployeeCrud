@@ -37,7 +37,7 @@ namespace Rentsas.Api.Infrastructure
         {
             var result = await _dbSet.Where(a => a.Id == Id).ExecuteDeleteAsync(cancellationToken);
 
-            return result > 0;
+            return true;
         }
 
         public async Task<PaginationResponse<GetEmployeeDto>> GetAllEmployees(EmployeeFilter filter, CancellationToken cancellationToken)
@@ -46,7 +46,9 @@ namespace Rentsas.Api.Infrastructure
                 .AsNoTracking().AsQueryable();
 
             if (!string.IsNullOrWhiteSpace(filter.Search))
-                query = query.Where(a => a.FirstName.Contains(filter.Search.Trim()) || a.LastName.Contains(filter.Search.Trim()) || a.Email == filter.Search.Trim());
+                query = query.Where(a =>
+     (a.FirstName + " " + a.LastName).ToLower().Contains(filter.Search.ToLower().Trim()) ||
+     a.Email == filter.Search.Trim());
 
             if (!string.IsNullOrWhiteSpace(filter.Position))
                 query = query.Where(a => a.Position.Contains(filter.Position.Trim()));
@@ -62,7 +64,7 @@ namespace Rentsas.Api.Infrastructure
                     Position = a.Position,
                 }).ToArrayAsync(cancellationToken);
 
-            return new PaginationResponse<GetEmployeeDto> { TotalCount = totalCount, Data = data };  
+            return new PaginationResponse<GetEmployeeDto> { TotalCount = totalCount, Data = data };
 
         }
 

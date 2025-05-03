@@ -1,0 +1,16 @@
+
+<form [formGroup]="FilterForm" (submit)="onFilterChange.emit()">
+  <mat-form-field appearance="outline"  class="mx-1">
+    <mat-label>Search by Name</mat-label>
+    <input matInput [formControl]="FilterForm.controls.search" />
+  </mat-form-field>
+
+  <mat-form-field appearance="outline" class="mx-1" >
+    <mat-label>Search By Position</mat-label>
+    <input matInput [formControl]="FilterForm.controls.position" />
+  </mat-form-field>
+
+  <button mat-raised-button color="primary" type="submit" >
+   filter
+  </button>
+</form>

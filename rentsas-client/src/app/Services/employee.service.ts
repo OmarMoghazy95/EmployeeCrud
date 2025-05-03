@@ -1,3 +1,4 @@
+import { PaginationResponse } from './../Models/pagination-response';
 import { inject, Injectable } from '@angular/core';
 import { Observable } from 'rxjs';
 import { EditEmployee } from '../Models/edit-employee';
@@ -30,7 +31,7 @@ export class EmployeeService {
     return this.#http.get<EditEmployee>(`${this.baseUrl}/${id}`);
   }
 
-  getAll(filter: EmployeeFilter): Observable<GetEmployee[]> {
+  getAll(filter: EmployeeFilter): Observable<PaginationResponse<GetEmployee>> {
     let params = new HttpParams();
     Object.entries(filter).forEach(([key, value]) => {
       if (value !== null && value !== undefined && value !== '') {
@@ -38,6 +39,6 @@ export class EmployeeService {
       }
     });
 
-    return this.#http.get<GetEmployee[]>(`${this.baseUrl}/`, { params });
+    return this.#http.get<PaginationResponse<GetEmployee>>(`${this.baseUrl}/`, { params });
   }
 }

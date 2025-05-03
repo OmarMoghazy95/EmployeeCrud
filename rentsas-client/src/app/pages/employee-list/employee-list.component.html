@@ -1,0 +1,64 @@
+<div class="card m-3">
+  <div class="card-header">
+    <div class="row w-100">
+      <div class="col-4  col-xs-12">
+        <h4 class=" text-primary">Employees List</h4>
+        <span class="small">Here is all our employees data</span>
+      </div>
+      <div class="col-8 col-xs-12">
+        <app-employee-filter [FilterForm]="FilterForm" (onFilterChange)="onFilter()"></app-employee-filter>
+      </div>
+    </div>
+  </div>
+  <div class="card-body" style="font-size: 13px;">
+    @if(employees().totalCount){
+    <div>
+      <table class="table verticle-middle">
+        <thead>
+          <tr>
+            <th scope="col">#</th>
+            <th scope="col">Name</th>
+            <th scope="col">
+              Email
+            </th>
+            <th scope="col">
+              Position
+            </th>
+            <th style="text-align: right;" scope="col">Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          @for (option of employees().data; track $index) {
+          <tr>
+            <td>{{skip +($index+1) }}</td>
+            <td>{{ option?.fullName}}</td>
+            <td>
+              {{ option?.email }}
+            </td>
+            <td>
+              {{ option?.position }}
+            </td>
+            <td>
+              <mat-icon title="Update" (click)="onEmployeeEdit.emit(option.id)" class="example-tab-icon active-icon"
+                style="color: darkorange; cursor: pointer">edit</mat-icon>
+              <mat-icon title="Delete" (click)="onEmployeeDelete.emit(option.id)" class="example-tab-icon active-icon"
+                style="color: red; cursor: pointer">delete_outline</mat-icon>
+            </td>
+          </tr>
+        }
+        </tbody>
+      </table>
+    </div>
+    }
+    @else {
+    <h5 class="text-danger"> no employees found !</h5>
+    }
+  </div>
+  @if (employees().totalCount){
+  <div class="card-footer">
+    <mat-paginator [length]="employees().totalCount" [pageSize]="+FilterForm.controls.pageSize.value"
+      [pageSizeOptions]="[5, 10, 25]" (page)="onPageChange($event)">
+    </mat-paginator>
+  </div>
+  }
+</div>

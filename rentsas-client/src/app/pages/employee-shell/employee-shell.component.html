@@ -1,0 +1,13 @@
+
+<div class="row">
+  <div class="col-lg-5 col-sm-12">
+   <app-edit-employee [employeeId]="employeeId()"  (onAddOrEdit)="onEditFormSubmit($event)"></app-edit-employee>
+  </div>
+  <div class="col-lg-7 col-sm-12">
+   <app-employee-list [employees]="employeeList()"
+   (onEmployeeEdit)="onEdit($event)"
+   (onEmployeeDelete)="onDeleteEmployee($event)"
+   (onFilterChange)="getEmployees()"
+    [FilterForm]="filterForm"></app-employee-list>
+  </div>
+ </div>
